@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Check if a branch is already checked out in any worktree
+is_branch_checked_out() {
+  local branch="$1"
+  git worktree list --porcelain | grep -q "^branch refs/heads/$branch$"
+}
+
 get_branch_list() {
   git branch -a | \
     sed 's/^[* ] //' | \
